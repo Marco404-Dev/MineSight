@@ -52,6 +52,34 @@ npm run dev
 - `npm run dev` inicia el entorno de desarrollo. Para levantar la compilación de producción ejecuta `npm run build` y luego `npm run start` dentro de `frontend/`. En PowerShell utiliza `npm.cmd`.
 - Si la interfaz no conecta con FastAPI, abre [el endpoint de salud](http://127.0.0.1:8000/api/health) para confirmar el puerto y el estado del modelo.
 
+## Despliegue público
+
+### 1. Backend en Render
+
+1. Inicia sesión en [Render](https://dashboard.render.com/). Selecciona **New → Blueprint**.
+2. Conecta GitHub y, si aparece el selector de acceso, autoriza solo `Marco404-Dev/MineSight`. Selecciona ese repositorio y la rama `main`. Render cargará `render.yaml` desde la raíz.
+3. Asigna un nombre al Blueprint y pulsa **Deploy Blueprint**. El servicio `minesight-api` se crea con el plan **Free**. Espera a que el despliegue esté activo y copia la URL HTTPS del servicio.
+4. Abre su ruta `/api/health` y comprueba que devuelve `{"status":"ok","model_ready":true}`.
+
+El Blueprint usa la raíz del repositorio porque FastAPI comparte `services/` y `models/` con Streamlit. Render selecciona Python 3.12 mediante `.python-version`. El servicio gratuito puede suspenderse por inactividad y tardar al atender la primera solicitud.
+
+### 2. Frontend en Vercel
+
+1. Inicia sesión en [Vercel](https://vercel.com/dashboard). Selecciona **Add New → Project** e importa `Marco404-Dev/MineSight`. Si no aparece, selecciona **Configure GitHub App** y autoriza solo ese repositorio.
+2. En **Configure Project**, elige **Next.js** y pulsa **Edit** en **Root Directory** para seleccionar `frontend`. En **Environment Variables**, añade `NEXT_PUBLIC_API_URL` con la URL HTTPS de Render, sin `/api` al final.
+3. Pulsa **Deploy**. En el proyecto de Vercel, copia el dominio de producción que aparece en **Domains**. Usa ese dominio para compartir el frontend.
+
+### 3. Vincular los dominios y comprobar el despliegue
+
+1. En Render, entra a `minesight-api` y abre **Environment → Add Environment Variable**. Crea `MINESIGHT_CORS_ORIGINS` con el origen HTTPS exacto de Vercel, sin ruta ni barra final. Guarda con **Save and deploy**. Puedes listar varios orígenes exactos separados por comas si usas varios dominios.
+2. Abre el dominio de producción de Vercel en una ventana privada. Verifica que el panel muestre **4 097 horas de entrenamiento**.
+3. En **Predicción manual**, pulsa **Asignar cluster** con las medias precargadas. El modelo original debe devolver **Cluster 6**.
+4. En **Análisis CSV**, usa un archivo UTF-8 con las siete columnas requeridas. Comprueba la validación, la segmentación y la descarga de operaciones. Para el PCA, usa un lote con variación en al menos dos componentes. El navegador envía el archivo HTTPS directamente a Render y se conserva el límite de 20 MiB de la API.
+
+### Actualizar desde GitHub
+
+Sube o fusiona tus cambios en `main`. Con los proyectos conectados al repositorio, Vercel publica el frontend desde su rama de producción y Render despliega el backend cuando recibe un commit de `main`. Revisa los resultados en **Deployments** de Vercel y **Events** de Render. Si cambia la URL de la API, actualiza `NEXT_PUBLIC_API_URL` en Vercel y vuelve a desplegar el frontend. Si cambia el dominio del frontend, actualiza el origen permitido en Render.
+
 ## Arquitectura
 
 | Ruta | Responsabilidad |
