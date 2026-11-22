@@ -1,5 +1,7 @@
 # MineSight 2.0
 
+[Demo pública](https://minesight-vert.vercel.app/) · [Documentación de la API](https://minesight-api.onrender.com/docs)
+
 MineSight analiza la similitud entre condiciones operativas de flotación de hierro. La interfaz usa Next.js y FastAPI ejecuta el escalador y el K-Means originales.
 
 ## Ejecutar en Windows
