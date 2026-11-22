@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #080d16;
+  --color-card: #111c2b;
+  --color-border: #263950;
+  --color-foreground: #f8fafc;
+  --color-muted-foreground: #a9bbcf;
+  --color-primary: #f5a45d;
+  --color-primary-foreground: #1c1108;
+}
+
+:root { color-scheme: dark; }
+body { margin:0; background:#080d16; color:#f8fafc; font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; }
+button,select { cursor:pointer; }
+.panel { background:linear-gradient(130deg,#142236ec,#101a28e8); box-shadow:0 18px 45px #03070d30; }
+.field { display:block; width:100%; min-height:2.75rem; border:1px solid #31475e; border-radius:.55rem; background:#0b1523; color:#f8fafc; padding:.55rem .7rem; }
+.field:focus { outline:2px solid #38bdf8; outline-offset:2px; }
+.hero-grid { background-image:linear-gradient(#28415855 1px,transparent 1px),linear-gradient(90deg,#28415855 1px,transparent 1px); background-size:28px 28px; }
+.hero-beam { height:1px; background:linear-gradient(90deg,transparent,#38bdf8aa,transparent); box-shadow:0 0 20px 2px #38bdf853; animation:scan 7s ease-in-out infinite; }
+@keyframes scan { 0%,100% {transform:translateY(-80px);opacity:0} 35%,60% {opacity:.65} 75% {transform:translateY(120px);opacity:0} }
+.recharts-default-tooltip { background:#172a40!important; border:1px solid #385470!important; border-radius:10px; }
+.recharts-tooltip-item { color:#f8fafc!important; }
+@media (prefers-reduced-motion: reduce) {
+  *,*::before,*::after {animation-duration:.001ms!important;transition-duration:.001ms!important;scroll-behavior:auto!important;}
+}
