@@ -41,6 +41,8 @@ La sección [Arquitectura](#arquitectura) documenta el flujo Next.js → FastAPI
 
 La [demo en Vercel](https://minesight-vert.vercel.app/) permite probar **Predicción manual** con las medias precargadas (clúster 6 en la prueba documentada) y **Análisis CSV** con la [muestra de 100 horas](docs/screenshots/MineSight_prueba_100_horas.csv). El [Writeup final](docs/MineSight_WriteUp.pdf) reúne metodología, arquitectura, gráficos, capturas, contribuciones y enlaces a las fuentes. El notebook contiene el detalle de los experimentos y el código de entrenamiento. La API y Streamlit reutilizan la lógica de `services/`.
 
+La Declaración de Proyecto Final Grupal es el documento institucional de la Universidad Peruana Cayetano Heredia (UPCH) que acredita las funciones y los compromisos de los cinco integrantes de MineSight. La declaración firmada se entrega como documento complementario directamente al docente.
+
 ## Ejecutar en Windows
 
 Requiere Python 3.12 y Node.js 22 o posterior. Abre dos terminales en la raíz del repositorio.
