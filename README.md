@@ -4,6 +4,43 @@
 
 MineSight analiza la similitud entre condiciones operativas de flotación de hierro. La interfaz usa Next.js y FastAPI ejecuta el escalador y el K-Means originales.
 
+[Notebook en Kaggle](https://www.kaggle.com/code/marcoanccoquispe/minesight-clustering-y-segmentaci-n-minera) · [GitHub](https://github.com/Marco404-Dev/MineSight) · [Writeup (PDF)](docs/MineSight_WriteUp.pdf) · [Notebook actualizado (.ipynb)](minesight-clustering-y-segmentaci-n-minera.ipynb)
+
+## 1. Uso efectivo del modelo
+
+El conjunto [Quality Prediction in a Mining Process](https://www.kaggle.com/datasets/edumagalhaes/quality-prediction-in-a-mining-process) aporta 737 453 registros de flotación de hierro. El notebook elimina 1 171 duplicados y agrega por marca horaria, con 4 097 horas y siete variables de alimentación, reactivos y pulpa. Aplica StandardScaler y compara K-Means frente a MiniBatch K-Means. Los centroides permiten describir perfiles en las escalas originales y asignar nuevas horas por similitud aun cuando falten etiquetas operativas. Hierro y sílice del concentrado se analizan después del ajuste.
+
+## 2. Dominio del problema
+
+El **metalurgista de procesos o analista de planta** necesita comparar el comportamiento de un turno con el historial cuando cambian varias condiciones a la vez. MineSight permite validar un lote, revisar las asignaciones y sus perfiles, e inspeccionar una hora con las siete entradas de la predicción manual. Las exportaciones apoyan el contraste con el laboratorio y la bitácora del turno.
+
+## 3. Potencial de impacto
+
+Los siguientes valores proceden de las salidas guardadas del notebook. La diferencia relativa toma el clúster 0 como base y usa los caudales mostrados.
+
+| Indicador | Cálculo sobre el historial | Lectura para planta |
+|---|---|---|
+| Frecuencia del clúster 6 | 100 × 904 / 4 097 = **22,06 %** de las horas analizadas | Referencia para comparar la mezcla de condiciones de un turno o lote posterior. |
+| Brecha de caudal de reactivos, clúster 2 frente al 0 | 100 × (media del clúster 0 − media del clúster 2) / media del clúster 0. Almidón: 3 775,59 frente a 1 662,71 (**55,96 %**). Amina: 531,62 frente a 354,11 (**33,39 %**). | Señala qué grupos vale la pena revisar junto con la alimentación y las propiedades de la pulpa. |
+| Caudal de reactivo relativo al de pulpa | Media horaria del caudal de reactivo del grupo / media horaria del caudal de pulpa del grupo, sobre las horas con datos de calidad. Clúster 0 → 2: almidón **9,415 → 4,185** y amina **1,326 → 0,891**. | Sirve para comparar flujos registrados entre grupos. La pulpa incluye agua y el caudal de solución no equivale a masa de reactivo activo. |
+| Ley e impureza del concentrado | Media aritmética de los promedios horarios unidos al grupo. Clúster 0 → 2: Fe **65,27 % → 64,92 %** (−0,35 puntos porcentuales) y sílice **2,31 % → 2,42 %** (+0,11 puntos porcentuales), a partir de las medias redondeadas de la tabla de calidad. | Contextualiza los contrastes de caudal. Son asociaciones históricas entre condiciones diferentes. |
+
+En un piloto, el metalurgista podría medir el tiempo de revisión con y sin MineSight sobre lotes comparables. La reducción relativa se calcularía como 100 × (mediana de minutos con el flujo actual − mediana de minutos con MineSight) / mediana de minutos con el flujo actual. También se podría contrastar la distribución de grupos por campaña. El estudio carece de mediciones del piloto, costos y balance metalúrgico. Para medir consumo específico se necesitan kg de reactivo activo y toneladas secas tratadas del mismo periodo. Para medir recuperación de hierro se requieren flujos másicos secos y leyes de alimentación y concentrado.
+
+## 4. Viabilidad del producto
+
+El barrido de k=2 a 8 seleccionó k=7 por silhouette. K-Means final usa `random_state=42` y `n_init=10`. La alternativa usa los mismos valores de k, semilla y reinicios, con minilotes de 256. Sobre las 4 097 horas, K-Means obtuvo silhouette **0,2262**, Davies–Bouldin **1,3357** y Calinski–Harabasz **917,3293**. MiniBatch K-Means obtuvo **0,1972**, **1,4672** y **865,4150**. El ARI medio de **0,9959** compara cuatro semillas contra la semilla 0 sobre el mismo conjunto.
+
+La separación es limitada (silhouette 0,2262). El modelo cubre una planta y un periodo de 2017. La agregación por hora oculta transitorios y la estabilidad observada frente a semillas sobre el mismo historial deja abierta la estabilidad ante cambios de campaña, mineral y calibración. La asignación al centroide más cercano es exploratoria y carece de validación como diagnóstico, pronóstico de calidad o regla de dosificación.
+
+Para un piloto en modo de observación, el metalurgista y el equipo de instrumentación deberían verificar el mapeo de etiquetas del historiador, las unidades, el sentido físico de los rangos, la cobertura horaria y el desfase con laboratorio. Conviene contrastar perfiles y distancias en ventanas temporales posteriores y revisar casos con especialistas antes de incorporar umbrales de alerta. El producto puede apoyar revisiones de turno e investigaciones de variabilidad por campaña. Una integración con el historiador requeriría un entorno autorizado para los datos operativos.
+
+La sección [Arquitectura](#arquitectura) documenta el flujo Next.js → FastAPI → escalador y modelo. El [Writeup](docs/MineSight_WriteUp.pdf) incluye el diagrama y la demostración.
+
+## 5. Ejecución y comunicación
+
+La [demo en Vercel](https://minesight-vert.vercel.app/) permite probar **Predicción manual** con las medias precargadas (clúster 6 en la prueba documentada) y **Análisis CSV** con la [muestra de 100 horas](docs/screenshots/MineSight_prueba_100_horas.csv). El [Writeup final](docs/MineSight_WriteUp.pdf) reúne metodología, arquitectura, gráficos, capturas, contribuciones y enlaces a las fuentes. El notebook contiene el detalle de los experimentos y el código de entrenamiento. La API y Streamlit reutilizan la lógica de `services/`.
+
 ## Ejecutar en Windows
 
 Requiere Python 3.12 y Node.js 22 o posterior. Abre dos terminales en la raíz del repositorio.
