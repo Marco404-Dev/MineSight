@@ -6,15 +6,15 @@ MineSight analiza la similitud entre condiciones operativas de flotación de hie
 
 [Demo en Vercel](https://minesight-vert.vercel.app/) · [API en Render](https://minesight-api.onrender.com/docs) · [Writeup (PDF)](docs/MineSight_WriteUp.pdf) · [Notebook actualizado](minesight-clustering-y-segmentaci-n-minera.ipynb) · [Notebook público en Kaggle (v1)](https://www.kaggle.com/code/marcoanccoquispe/minesight-clustering-y-segmentaci-n-minera)
 
-## 1. Uso efectivo del modelo · 4 puntos
+## 1. Uso efectivo del modelo 
 
 El conjunto [Quality Prediction in a Mining Process](https://www.kaggle.com/datasets/edumagalhaes/quality-prediction-in-a-mining-process) aporta 737 453 registros de flotación de hierro. El notebook elimina 1 171 duplicados y agrega por marca horaria, con 4 097 horas y siete variables de alimentación, reactivos y pulpa. Aplica StandardScaler y compara K-Means frente a MiniBatch K-Means. Los centroides permiten describir perfiles en las escalas originales y asignar nuevas horas por similitud aun cuando falten etiquetas operativas. Hierro y sílice del concentrado se analizan después del ajuste.
 
-## 2. Dominio del problema · 3 puntos
+## 2. Dominio del problema 
 
 El **metalurgista de procesos o analista de planta** necesita comparar el comportamiento de un turno con el historial cuando cambian varias condiciones a la vez. MineSight permite validar un lote, revisar las asignaciones y sus perfiles, e inspeccionar una hora con las siete entradas de la predicción manual. Las exportaciones apoyan el contraste con el laboratorio y la bitácora del turno.
 
-## 3. Potencial de impacto · 3 puntos
+## 3. Potencial de impacto 
 
 Los siguientes valores proceden de las salidas guardadas del notebook. La diferencia relativa toma el clúster 0 como base y usa los caudales mostrados.
 
@@ -29,7 +29,7 @@ Las diferencias son asociaciones históricas entre horas con distinta alimentaci
 
 Para medir el tiempo de revisión, un piloto puede pedir a metalurgistas que identifiquen el perfil dominante de lotes comparables y entreguen una tabla verificable. Cada participante usaría ambos flujos en orden alternado, con los mismos criterios de exactitud y tiempos desde la apertura del archivo hasta la entrega. La fórmula prevista es 100 × (mediana de minutos con el flujo actual − mediana con MineSight) / mediana con el flujo actual. Falta observar el flujo actual con operadores y cronometrar esa tarea. Las pruebas técnicas de la API cubren otra unidad de medida.
 
-## 4. Viabilidad del producto · 4 puntos
+## 4. Viabilidad del producto 
 
 El barrido de k=2 a 8 seleccionó k=7 por silhouette. K-Means final usa `random_state=42` y `n_init=10`. La alternativa usa los mismos valores de k, semilla y reinicios, con minilotes de 256. Sobre las 4 097 horas, K-Means obtuvo silhouette **0,2262**, Davies–Bouldin **1,3357** y Calinski–Harabasz **917,3293**. MiniBatch K-Means obtuvo **0,1972**, **1,4672** y **865,4150**. El ARI medio de **0,9959** compara cuatro semillas contra la semilla 0 sobre el mismo conjunto.
 
@@ -54,7 +54,7 @@ Reproduce el corte desde la raíz, con las dependencias de Python instaladas y e
 python -m docs.validation.temporal /ruta/al/MiningProcess_Flotation_Plant_Database.csv
 ```
 
-## 5. Ejecución y comunicación · 6 puntos
+## 5. Ejecución y comunicación 
 
 La [demo en Vercel](https://minesight-vert.vercel.app/) permite probar **Predicción manual** con las medias precargadas (clúster 6 en la prueba documentada) y **Análisis CSV** con la [muestra de 100 horas](docs/screenshots/MineSight_prueba_100_horas.csv). El [Writeup final](docs/MineSight_WriteUp.pdf) reúne metodología, arquitectura, gráficos, capturas, contribuciones y enlaces a las fuentes. El notebook contiene el detalle de los experimentos y el código de entrenamiento. La API y Streamlit reutilizan la lógica de `services/`.
 
