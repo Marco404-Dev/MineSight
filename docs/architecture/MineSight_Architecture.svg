@@ -1,0 +1,147 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1500 1194" width="1500" height="1194" role="img"><title>MineSight — Arquitectura del sistema</title><rect width="100%" height="100%" fill="#fff"/>
+<text x="35" y="44" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#93471E">Machine Learning · Proyecto Final · UPCH 2026-II</text>
+<text x="35" y="97" font-family="Arial, sans-serif" font-size="42" font-weight="700" fill="#0F172A">MineSight — Arquitectura del sistema</text>
+<text x="36" y="136" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#475569">Segmentación inteligente de operaciones de flotación minera mediante aprendizaje no supervisado.</text>
+<rect x="35" y="164" width="1430" height="217" rx="17" fill="#FFFAF5" stroke="#E5C7AF"/>
+<text x="57" y="202" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#93471E">01   Entrenamiento offline | Kaggle</text>
+<text x="1090" y="201" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Python · pandas · scikit-learn</text>
+<rect x="56" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="71" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Dataset de flotación</text>
+<text x="71" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">CSV público de Kaggle</text>
+<text x="71" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">737 453 registros</text>
+<text x="71" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">24 columnas</text>
+<rect x="290" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="305" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Preparación</text>
+<text x="305" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Conversión de tipos</text>
+<text x="305" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Limpieza y deduplicación</text>
+<text x="305" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Promedios por hora</text>
+<rect x="524" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="539" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Variables y escala</text>
+<text x="539" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">7 variables operativas</text>
+<text x="539" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">4 097 horas de análisis</text>
+<text x="539" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">StandardScaler</text>
+<rect x="758" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="773" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Clustering</text>
+<text x="773" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">K-Means con k de 2 a 8</text>
+<text x="773" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">MiniBatch K-Means</text>
+<text x="773" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Comparación con k=7</text>
+<rect x="992" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="1007" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Evaluación</text>
+<text x="1007" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Silhouette, inercia, DB y CH</text>
+<text x="1007" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">ARI entre semillas</text>
+<text x="1007" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Perfiles y PCA (2D)</text>
+<rect x="1226" y="226" width="216" height="120" rx="12" fill="#FFFFFF" stroke="#DFC0A7"/>
+<text x="1241" y="257" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#93471E">Modelo final</text>
+<text x="1241" y="284" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">K-Means con k=7</text>
+<text x="1241" y="302" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">Silhouette 0,2262</text>
+<text x="1241" y="320" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">ARI medio 0,9959</text>
+<polyline points="272,285 290,285" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="290,285 281.0,280.23 281.0,289.77" fill="#C27035"/>
+<polyline points="506,285 524,285" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="524,285 515.0,280.23 515.0,289.77" fill="#C27035"/>
+<polyline points="740,285 758,285" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="758,285 749.0,280.23 749.0,289.77" fill="#C27035"/>
+<polyline points="974,285 992,285" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="992,285 983.0,280.23 983.0,289.77" fill="#C27035"/>
+<polyline points="1208,285 1226,285" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="1226,285 1217.0,280.23 1217.0,289.77" fill="#C27035"/>
+<text x="57" y="368" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">DB: Davies–Bouldin · CH: Calinski–Harabasz · ARI: Adjusted Rand Index</text>
+<rect x="35" y="419" width="1430" height="164" rx="17" fill="#F8FAFC" stroke="#CBD5E1"/>
+<text x="57" y="457" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0F172A">02   Persistencia de artefactos ML</text>
+<text x="1090" y="456" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Repositorio · models/ · joblib</text>
+<rect x="56" y="469" width="307" height="90" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<path d="M70,485 h24 v24 q-6,-4 -12,0 t-12,0 z" fill="#FFF7ED" stroke="#A15124" stroke-width="1.5"/>
+<text x="104" y="500" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Modelo entrenado</text>
+<text x="104" y="529" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">minesight_kmeans.pkl</text>
+<rect x="384" y="469" width="307" height="90" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<path d="M398,485 h24 v24 q-6,-4 -12,0 t-12,0 z" fill="#FFF7ED" stroke="#A15124" stroke-width="1.5"/>
+<text x="432" y="500" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Escalador ajustado</text>
+<text x="432" y="529" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">minesight_scaler.pkl</text>
+<rect x="712" y="469" width="307" height="90" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<path d="M726,485 h24 v24 q-6,-4 -12,0 t-12,0 z" fill="#FFF7ED" stroke="#A15124" stroke-width="1.5"/>
+<text x="760" y="500" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Orden de las 7 variables</text>
+<text x="760" y="529" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">minesight_variables.pkl</text>
+<rect x="1040" y="469" width="402" height="90" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1055" y="500" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Artefactos versionados</text>
+<text x="1055" y="529" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Tres archivos PKL del notebook</text>
+<polyline points="1334,346 1334,469" fill="none" stroke="#C27035" stroke-width="2.3" stroke-dasharray="7 5"/>
+<polygon points="1334,469 1338.77,460.0 1329.23,460.0" fill="#C27035"/>
+<text x="1346" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#93471E">Exportación PKL</text>
+<rect x="35" y="634" width="1430" height="254" rx="17" fill="#EFF6FF" stroke="#BFDBFE"/>
+<text x="57" y="672" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#1D4ED8">03   Aplicación web | Producción</text>
+<text x="1090" y="671" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Next.js y FastAPI</text>
+<rect x="56" y="687" width="247" height="168" rx="12" fill="#FFFFFF" stroke="#BFDBFE"/>
+<text x="71" y="718" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Usuario final</text>
+<text x="71" y="747" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Ingresa 7 valores</text>
+<text x="71" y="768" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Carga un archivo CSV</text>
+<text x="71" y="789" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Consulta perfiles y gráficos</text>
+<rect x="423" y="687" width="337" height="168" rx="12" fill="#FFFFFF" stroke="#BFDBFE"/>
+<text x="438" y="718" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Next.js | Vercel</text>
+<text x="438" y="747" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Panel histórico y ficha del modelo</text>
+<text x="438" y="768" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Formulario y vista previa del CSV</text>
+<text x="438" y="789" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Visualización de segmentos y PCA</text>
+<text x="438" y="810" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Descarga de resultados</text>
+<rect x="949" y="687" width="493" height="168" rx="12" fill="#FFFFFF" stroke="#BFDBFE"/>
+<text x="964" y="718" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">FastAPI | Render</text>
+<text x="964" y="747" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Validación CSV y JSON</text>
+<text x="964" y="768" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Agregación horaria opcional</text>
+<text x="964" y="789" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Escalador original</text>
+<text x="964" y="810" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Inferencia con K-Means</text>
+<text x="1211" y="718" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Resultados de la API</text>
+<text x="1211" y="747" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Clúster y distancias¹</text>
+<text x="1211" y="768" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Perfiles y PCA opcional²</text>
+<text x="1211" y="789" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">CSV y reporte Markdown</text>
+<polyline points="1334,559 1334,687" fill="none" stroke="#C27035" stroke-width="2.3" stroke-dasharray="7 5"/>
+<polygon points="1334,687 1338.77,678.0 1329.23,678.0" fill="#C27035"/>
+<text x="961" y="610" font-family="Arial, sans-serif" font-size="16" font-weight="700" fill="#93471E">Carga al iniciar la API · verificación SHA-256</text>
+<polyline points="303,743 423,743" fill="none" stroke="#2563EB" stroke-width="2.3"/>
+<polygon points="423,743 414.0,738.23 414.0,747.77" fill="#2563EB"/>
+<polyline points="423,807 303,807" fill="none" stroke="#2563EB" stroke-width="2.3"/>
+<polygon points="303,807 312.0,811.77 312.0,802.23" fill="#2563EB"/>
+<text x="321" y="729" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">Datos / CSV</text>
+<text x="327" y="793" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">Resultados</text>
+<polyline points="760,743 949,743" fill="none" stroke="#2563EB" stroke-width="2.3"/>
+<polygon points="949,743 940.0,738.23 940.0,747.77" fill="#2563EB"/>
+<polyline points="949,807 760,807" fill="none" stroke="#2563EB" stroke-width="2.3"/>
+<polygon points="760,807 769.0,811.77 769.0,802.23" fill="#2563EB"/>
+<text x="782" y="729" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">HTTPS · JSON o CSV</text>
+<text x="774" y="793" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">HTTPS · JSON o archivo</text>
+<text x="56" y="876" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#475569">¹ Distancias a los centroides en predicción manual.  ² PCA del lote cuando hay variación suficiente.</text>
+<text x="1129" y="876" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#1D4ED8">Inferencia sin reentrenamiento</text>
+<rect x="35" y="910" width="1430" height="218" rx="17" fill="#F8FAFC" stroke="#CBD5E1"/>
+<text x="57" y="948" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#0F172A">04   Contrato HTTP y procesamiento</text>
+<text x="1090" y="947" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">FastAPI · /api · CORS</text>
+<rect x="56" y="965" width="378" height="149" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="71" y="996" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Rutas de la API</text>
+<text x="71" y="1025" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">GET /health · /model-info</text>
+<text x="71" y="1046" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">POST /predict · /preview-csv</text>
+<text x="71" y="1067" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">POST /analyze-csv</text>
+<text x="71" y="1088" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">POST /export-csv/{kind}</text>
+<rect x="450" y="965" width="300" height="149" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="465" y="996" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Validación de entradas</text>
+<text x="465" y="1025" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">JSON tipado con Pydantic</text>
+<text x="465" y="1046" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">CSV UTF-8 de hasta 20 MiB</text>
+<text x="465" y="1067" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">7 cabeceras y números finitos</text>
+<text x="465" y="1088" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Opción de promedio por hora</text>
+<rect x="766" y="965" width="309" height="149" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="781" y="996" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Pipeline de inferencia</text>
+<text x="781" y="1025" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">StandardScaler original</text>
+<text x="781" y="1046" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">K-Means · centroide más cercano</text>
+<text x="781" y="1067" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Distribución y perfiles del lote</text>
+<text x="781" y="1088" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">PCA de 2 componentes opcional</text>
+<rect x="1091" y="965" width="351" height="149" rx="12" fill="#FFFFFF" stroke="#CBD5E1"/>
+<text x="1106" y="996" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#0F172A">Respuesta y descargas</text>
+<text x="1106" y="1025" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">JSON de resultados para Next.js</text>
+<text x="1106" y="1046" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Operaciones y resumen en CSV</text>
+<text x="1106" y="1067" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Reporte en Markdown</text>
+<text x="1106" y="1088" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#475569">Lotes sin persistencia en servidor</text>
+<polyline points="55,1161 98,1161" fill="none" stroke="#C27035" stroke-width="2.3"/>
+<polygon points="98,1161 89.0,1156.23 89.0,1165.77" fill="#C27035"/>
+<text x="109" y="1165" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#0F172A">Datos de entrenamiento</text>
+<polyline points="341,1161 384,1161" fill="none" stroke="#C27035" stroke-width="2.3" stroke-dasharray="7 5"/>
+<polygon points="384,1161 375.0,1156.23 375.0,1165.77" fill="#C27035"/>
+<text x="395" y="1165" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#0F172A">Transferencia o carga de artefactos</text>
+<polyline points="710,1161 753,1161" fill="none" stroke="#2563EB" stroke-width="2.3"/>
+<polygon points="753,1161 744.0,1156.23 744.0,1165.77" fill="#2563EB"/>
+<text x="764" y="1165" font-family="Arial, sans-serif" font-size="16" font-weight="400" fill="#0F172A">Solicitudes y resultados en producción</text>
+</svg>

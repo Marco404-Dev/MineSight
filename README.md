@@ -1,20 +1,20 @@
-# MineSight 2.0
+# MineSight · Segmentación operativa en flotación de hierro
 
-[Demo pública](https://minesight-vert.vercel.app/) · [Documentación de la API](https://minesight-api.onrender.com/docs)
+Proyecto Final de Machine Learning · Universidad Peruana Cayetano Heredia · 2026-II
 
 MineSight analiza la similitud entre condiciones operativas de flotación de hierro. La interfaz usa Next.js y FastAPI ejecuta el escalador y el K-Means originales.
 
-[Notebook en Kaggle](https://www.kaggle.com/code/marcoanccoquispe/minesight-clustering-y-segmentaci-n-minera) · [GitHub](https://github.com/Marco404-Dev/MineSight) · [Writeup (PDF)](docs/MineSight_WriteUp.pdf) · [Notebook actualizado (.ipynb)](minesight-clustering-y-segmentaci-n-minera.ipynb)
+[Demo en Vercel](https://minesight-vert.vercel.app/) · [API en Render](https://minesight-api.onrender.com/docs) · [Writeup (PDF)](docs/MineSight_WriteUp.pdf) · [Notebook actualizado](minesight-clustering-y-segmentaci-n-minera.ipynb) · [Notebook público en Kaggle (v1)](https://www.kaggle.com/code/marcoanccoquispe/minesight-clustering-y-segmentaci-n-minera)
 
-## 1. Uso efectivo del modelo
+## 1. Uso efectivo del modelo · 4 puntos
 
 El conjunto [Quality Prediction in a Mining Process](https://www.kaggle.com/datasets/edumagalhaes/quality-prediction-in-a-mining-process) aporta 737 453 registros de flotación de hierro. El notebook elimina 1 171 duplicados y agrega por marca horaria, con 4 097 horas y siete variables de alimentación, reactivos y pulpa. Aplica StandardScaler y compara K-Means frente a MiniBatch K-Means. Los centroides permiten describir perfiles en las escalas originales y asignar nuevas horas por similitud aun cuando falten etiquetas operativas. Hierro y sílice del concentrado se analizan después del ajuste.
 
-## 2. Dominio del problema
+## 2. Dominio del problema · 3 puntos
 
 El **metalurgista de procesos o analista de planta** necesita comparar el comportamiento de un turno con el historial cuando cambian varias condiciones a la vez. MineSight permite validar un lote, revisar las asignaciones y sus perfiles, e inspeccionar una hora con las siete entradas de la predicción manual. Las exportaciones apoyan el contraste con el laboratorio y la bitácora del turno.
 
-## 3. Potencial de impacto
+## 3. Potencial de impacto · 3 puntos
 
 Los siguientes valores proceden de las salidas guardadas del notebook. La diferencia relativa toma el clúster 0 como base y usa los caudales mostrados.
 
@@ -25,9 +25,11 @@ Los siguientes valores proceden de las salidas guardadas del notebook. La difere
 | Caudal de reactivo relativo al de pulpa | Media horaria del caudal de reactivo del grupo / media horaria del caudal de pulpa del grupo, sobre las horas con datos de calidad. Clúster 0 → 2: almidón **9,415 → 4,185** y amina **1,326 → 0,891**. | Sirve para comparar flujos registrados entre grupos. La pulpa incluye agua y el caudal de solución no equivale a masa de reactivo activo. |
 | Ley e impureza del concentrado | Media aritmética de los promedios horarios unidos al grupo. Clúster 0 → 2: Fe **65,27 % → 64,92 %** (−0,35 puntos porcentuales) y sílice **2,31 % → 2,42 %** (+0,11 puntos porcentuales), a partir de las medias redondeadas de la tabla de calidad. | Contextualiza los contrastes de caudal. Son asociaciones históricas entre condiciones diferentes. |
 
-En un piloto, el metalurgista podría medir el tiempo de revisión con y sin MineSight sobre lotes comparables. La reducción relativa se calcularía como 100 × (mediana de minutos con el flujo actual − mediana de minutos con MineSight) / mediana de minutos con el flujo actual. También se podría contrastar la distribución de grupos por campaña. El estudio carece de mediciones del piloto, costos y balance metalúrgico. Para medir consumo específico se necesitan kg de reactivo activo y toneladas secas tratadas del mismo periodo. Para medir recuperación de hierro se requieren flujos másicos secos y leyes de alimentación y concentrado.
+Las diferencias son asociaciones históricas entre horas con distinta alimentación, dosificación y estado de la pulpa. Las pruebas de la demo verifican segmentación y exportación. Para atribuir mejoras de dosificación, recuperación o costos harían falta validación metalúrgica, datos de reactivo activo y flujos másicos secos.
 
-## 4. Viabilidad del producto
+Para medir el tiempo de revisión, un piloto puede pedir a metalurgistas que identifiquen el perfil dominante de lotes comparables y entreguen una tabla verificable. Cada participante usaría ambos flujos en orden alternado, con los mismos criterios de exactitud y tiempos desde la apertura del archivo hasta la entrega. La fórmula prevista es 100 × (mediana de minutos con el flujo actual − mediana con MineSight) / mediana con el flujo actual. Falta observar el flujo actual con operadores y cronometrar esa tarea. Las pruebas técnicas de la API cubren otra unidad de medida.
+
+## 4. Viabilidad del producto · 4 puntos
 
 El barrido de k=2 a 8 seleccionó k=7 por silhouette. K-Means final usa `random_state=42` y `n_init=10`. La alternativa usa los mismos valores de k, semilla y reinicios, con minilotes de 256. Sobre las 4 097 horas, K-Means obtuvo silhouette **0,2262**, Davies–Bouldin **1,3357** y Calinski–Harabasz **917,3293**. MiniBatch K-Means obtuvo **0,1972**, **1,4672** y **865,4150**. El ARI medio de **0,9959** compara cuatro semillas contra la semilla 0 sobre el mismo conjunto.
 
@@ -35,13 +37,40 @@ La separación es limitada (silhouette 0,2262). El modelo cubre una planta y un 
 
 Para un piloto en modo de observación, el metalurgista y el equipo de instrumentación deberían verificar el mapeo de etiquetas del historiador, las unidades, el sentido físico de los rangos, la cobertura horaria y el desfase con laboratorio. Conviene contrastar perfiles y distancias en ventanas temporales posteriores y revisar casos con especialistas antes de incorporar umbrales de alerta. El producto puede apoyar revisiones de turno e investigaciones de variabilidad por campaña. Una integración con el historiador requeriría un entorno autorizado para los datos operativos.
 
-La sección [Arquitectura](#arquitectura) documenta el flujo Next.js → FastAPI → escalador y modelo. El [Writeup](docs/MineSight_WriteUp.pdf) incluye el diagrama y la demostración.
+### Validación cronológica exploratoria
 
-## 5. Ejecución y comunicación
+Con el CSV original se reprodujeron la deduplicación y los promedios horarios del notebook. Se ajustó una réplica de StandardScaler y K-Means (`k=7`, `random_state=42`, `n_init=10`) únicamente antes del 1 de julio de 2017. Las horas posteriores se asignaron a esos centroides congelados. El umbral de referencia es el percentil 95 de distancia al centroide más cercano en ajuste (2,7296).
+
+| Periodo 2017 | Horas | Silhouette | Mediana de distancia | Sobre el umbral |
+|---|---:|---:|---:|---:|
+| 10 mar–30 jun, ajuste | 2 393 | 0,2314 | 1,4532 | 5,01 % |
+| 1 jul–9 sep, evaluación | 1 704 | 0,2041 | 2,8267 | 52,17 % |
+
+La distancia se mide en las siete variables estandarizadas. El aumento indica que muchas horas posteriores se parecen menos a los perfiles tempranos. Es un único corte de una planta, sin etiquetas de campaña ni validación de alarmas. Los identificadores de la réplica son propios de ese ajuste. Se conservan las métricas históricas y los PKL de producción.
+
+Reproduce el corte desde la raíz, con las dependencias de Python instaladas y el CSV original disponible fuera del repositorio.
+
+```bash
+python -m docs.validation.temporal /ruta/al/MiningProcess_Flotation_Plant_Database.csv
+```
+
+## 5. Ejecución y comunicación · 6 puntos
 
 La [demo en Vercel](https://minesight-vert.vercel.app/) permite probar **Predicción manual** con las medias precargadas (clúster 6 en la prueba documentada) y **Análisis CSV** con la [muestra de 100 horas](docs/screenshots/MineSight_prueba_100_horas.csv). El [Writeup final](docs/MineSight_WriteUp.pdf) reúne metodología, arquitectura, gráficos, capturas, contribuciones y enlaces a las fuentes. El notebook contiene el detalle de los experimentos y el código de entrenamiento. La API y Streamlit reutilizan la lógica de `services/`.
 
-La Declaración de Proyecto Final Grupal es el documento institucional de la Universidad Peruana Cayetano Heredia (UPCH) que acredita las funciones y los compromisos de los cinco integrantes de MineSight. La declaración firmada se entrega como documento complementario directamente al docente.
+La Declaración de Proyecto Final Grupal de la UPCH acredita las funciones y los compromisos del equipo. Cuenta con las firmas de los cinco integrantes y está pendiente de la firma del docente. Se entrega directamente al docente como documento complementario.
+
+### Demostración en producción
+
+Capturas de Vercel del 27 de noviembre de 2026, con resultados de la API pública de Render.
+
+| Panel ejecutivo | Predicción manual |
+| --- | --- |
+| ![Panel con indicadores y distribución histórica](docs/screenshots/panel-ejecutivo.png) | ![Predicción con medias históricas, clúster 6 y distancias](docs/screenshots/prediccion-manual.png) |
+
+| Validación del CSV | Resultados del lote |
+| --- | --- |
+| ![Vista previa de la muestra con 100 filas validadas](docs/screenshots/analisis-csv.png) | ![Distribución, perfiles y PCA de 100 operaciones](docs/screenshots/resultados-csv.png) |
 
 ## Ejecutar en Windows
 
@@ -123,6 +152,10 @@ Sube o fusiona tus cambios en `main`. Con los proyectos conectados al repositori
 
 ## Arquitectura
 
+![Arquitectura de MineSight desde entrenamiento y artefactos hasta inferencia, API y exportaciones](docs/architecture/MineSight_Architecture.svg)
+
+[Diagrama editable en Draw.io](docs/architecture/MineSight_Architecture.drawio)
+
 | Ruta | Responsabilidad |
 | --- | --- |
 | `frontend/src/app/` | Panel ejecutivo, análisis CSV, predicción manual e información del modelo con App Router |
@@ -152,27 +185,19 @@ El CSV admite UTF-8, un máximo de 20 MiB y las siete cabeceras exactas que apar
 
 ## Pruebas
 
-Desde la raíz, en Windows:
+[GitHub Actions](https://github.com/Marco404-Dev/MineSight/actions/workflows/verificacion.yml) ejecuta las pruebas de FastAPI, del pipeline y de Streamlit con Python 3.12. Compila Next.js con Node.js 22 y Webpack en cada push y pull request dirigido a `main`.
 
-```powershell
-.\.venv\Scripts\python.exe -m pip install -r backend\requirements-dev.txt
-.\.venv\Scripts\python.exe -m unittest discover -s backend/tests -v
-npm.cmd --prefix frontend run build
-```
-
-En Linux:
+En la revisión local pasaron 13 pruebas (5 de FastAPI y 8 de pipeline y Streamlit) y la compilación de producción con Webpack. Ejecuta estos comandos desde la raíz con el entorno de Python 3.12 activado.
 
 ```bash
-.venv/bin/python -m pip install -r backend/requirements-dev.txt
-.venv/bin/python -m unittest discover -s backend/tests -v
-npm --prefix frontend run build
+python -m pip install -r requirements.txt -r backend/requirements-dev.txt
+python -m unittest discover -s backend/tests -v
+python -m unittest discover -s tests -v
+npm --prefix frontend ci
+npm --prefix frontend run build -- --webpack
 ```
 
-La prueba de paridad compara FastAPI con el pipeline de Streamlit usando las medias y los centroides del modelo. Para la verificación manual también se utilizó una muestra de promedios horarios del conjunto público *Quality Prediction in a Mining Process*, obtenida de [la versión derivada documentada](https://github.com/baiheng2012/mine-ai-platform/blob/main/data/README.md). El conjunto completo queda fuera del repositorio.
-
-## Alcance
-
-Los clusters representan similitud operativa con el historial. Las métricas del notebook se muestran con sus valores documentados. La comparación con MiniBatch K-Means es relativa y la estabilidad se representa con el ARI medio. MineSight carece de validación como diagnóstico de fallas, evaluación de riesgo, recomendación de dosificación o estimación de calidad.
+La prueba de paridad compara FastAPI con el pipeline de Streamlit usando las medias y los centroides del modelo. En producción, `/api/health` reportó el modelo disponible. Las medias precargadas dieron el clúster 6. El CSV de 100 horas pasó la validación, devolvió 100 operaciones y 100 puntos PCA y permitió descargar las operaciones. La muestra procede de [una versión pública agregada por hora](https://github.com/baiheng2012/mine-ai-platform/blob/main/data/README.md).
 
 ## Streamlit
 
